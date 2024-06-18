@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "students",
 ]
 
-AUTH_USER_MODEL = "students.User"
+AUTH_USER_MODEL = "students.Teacher"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
