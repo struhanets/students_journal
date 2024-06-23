@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from students.models import Student, Subject, Teacher
+from models import Student, Subject, Teacher
 
 
 # Create your views here.
