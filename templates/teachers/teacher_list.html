@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Teachers List</h1>
+
+  {% if teacher_list %}
+    {% for teacher in teacher_list %}
+      <li>
+        <a href="{{ teacher.get_absolute_url }}">{{ teacher.username }}</a>
+      </li>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

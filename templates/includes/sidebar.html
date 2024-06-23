@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<ul class="sidebar-nav">
+  <li>
+    <a href= {% url "journal:index" %}>Home</a>
+  </li>
+  <li>
+    <a href="{% url "journal:students-list" %}">All students</a>
+  </li>
+  <li>
+    <a href="{% url "journal:teachers-list" %}">All teachers</a>
+  </li>
+  <li>
+    <a href="{% url "journal:subjects-list" %}">All subjects</a>
+  </li>
+</ul>

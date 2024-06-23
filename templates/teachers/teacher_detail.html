@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>
+    {{ teacher.username }}
+    <small class="text-muted">
+      {{ teacher.first_name }} {{ teacher.last_name }}
+    </small>
+  </h3>
+  <blockquote class="blockquote">
+    <p class="mb-0">{{ teacher.notes }}</p>
+  </blockquote>
+{% endblock %}

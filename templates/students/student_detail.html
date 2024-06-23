@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ student.first_name }}</h1>
+  <h2>{{ student.last_name }}</h2>
+  <p>{{ student.notes }}</p>
+  <div class="ml-3">
+    <h3>Subjects</h3>
+    {% for subject in student.subjects.all %}
+      <hr>
+      <p class="text-capitalize">
+        {{ subject.title }}
+      </p>
+    {% empty %}
+      <p>No subjects for this student</p>
+    {% endfor %}
+  </div>
+
+{% endblock %}

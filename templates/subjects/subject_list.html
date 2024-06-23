@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>List of Subjects</h1>
+  {% if subject_list %}
+    <ul>
+      {% for subject in subject_list %}
+        <li>
+          <a href="#">{{ subject.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
