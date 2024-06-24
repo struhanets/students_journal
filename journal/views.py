@@ -27,6 +27,7 @@ def index(request: HttpRequest) -> HttpResponse:
 class StudentListView(generic.ListView):
     model = Student
     template_name = "students/student_list.html"
+    paginate_by = 5
 
 
 class StudentDetailView(generic.DetailView):
@@ -37,16 +38,23 @@ class StudentDetailView(generic.DetailView):
 class TeacherListView(generic.ListView):
     model = Teacher
     template_name = "teachers/teacher_list.html"
+    paginate_by = 2
 
 
 class TeacherDetailView(generic.DetailView):
     model = Teacher
     template_name = "teachers/teacher_detail.html"
 
+
 class GroupListView(generic.ListView):
     model = Group
     template_name = "groups/group_list.html"
-    queryset = Group.objects.select_related("student")
+    queryset = Group.objects.select_related("leader")
+
+
+class GroupDetailView(generic.DetailView):
+    model = Group
+    template_name = "groups/group_detail.html"
 
 
 class SubjectListView(generic.ListView):
@@ -55,4 +63,6 @@ class SubjectListView(generic.ListView):
     queryset = Subject.objects.prefetch_related("students")
 
 
-
+class SubjectDetailView(generic.DetailView):
+    model = Subject
+    template_name = "subjects/subject_detail.html"

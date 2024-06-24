@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ group.title }}</h1>
+  <div class="container-fluid">
+    <h3>
+      Leader of group:
+      <small class="text-muted">{{ group.leader }}t</small>
+    </h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Number</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Birthdate</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for student in group.students.all %}
+        <tr>
+          <th scope="row">{{ student.id }}</th>
+          <td>{{ student.first_name }}</td>
+          <td>{{ student.last_name }}</td>
+          <td>{{ student.birth_date }}</td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

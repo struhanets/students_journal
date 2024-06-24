@@ -15,7 +15,7 @@ class Student(models.Model):
         ordering = ("last_name",)
 
     def __str__(self) -> str:
-        return f"{self.first_name} {self.last_name} was born in {self.birth_date}"
+        return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
         return reverse("journal:students-detail", args=[str(self.id)])
@@ -36,14 +36,18 @@ class Teacher(AbstractUser):
 
 class Group(models.Model):
     title = models.CharField(max_length=255, unique=True)
-    leader = models.ForeignKey(Student, on_delete=models.PROTECT)
+    leader = models.OneToOneField(Student, on_delete=models.PROTECT, related_name="leader")
+    students = models.ManyToManyField(Student, related_name="groups")
     notes = models.TextField(blank=True)
 
     class Meta:
         ordering = ("title",)
 
     def __str__(self) -> str:
-        return f"Group {self.title}, leader {self.leader}"
+        return f"Group {self.title}"
+
+    def get_absolute_url(self):
+        return reverse("journal:groups-detail", args=[str(self.id)])
 
 
 class Subject(models.Model):
