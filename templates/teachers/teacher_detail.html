@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h3>
@@ -10,4 +11,12 @@
   <blockquote class="blockquote">
     <p class="mb-0">{{ teacher.notes }}</p>
   </blockquote>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <a href="{% url "journal:teachers-update" pk=teacher.id %}">
+      <input class="btn btn-success" type="button" value="Edit">
+    </a>
+  </form>
 {% endblock %}

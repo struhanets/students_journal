@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>List of Groups</h1>
@@ -13,4 +14,9 @@
       {% endfor %}
     </ul>
   {% endif %}
+  <form action="{% url "journal:groups-create" %}" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn, btn-primary" type="submit" value="Add Group">
+  </form>
 {% endblock %}

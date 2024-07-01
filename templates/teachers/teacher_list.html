@@ -1,13 +1,35 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>Teachers List</h1>
-
   {% if teacher_list %}
-    {% for teacher in teacher_list %}
-      <li>
-        <a href="{{ teacher.get_absolute_url }}">{{ teacher.username }}</a>
-      </li>
-    {% endfor %}
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Number</th>
+          <th scope="col">Username</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for teacher in teacher_list %}
+        <tr>
+          <th scope="row">{{ teacher.id }}</th>
+          <td><a href="{{ teacher.get_absolute_url }}">{{ teacher.username }}</a></td>
+          <td>{{ teacher.first_name }}</td>
+          <td>{{ teacher.last_name }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
   {% endif %}
+  <br>
+  <form action="{% url "journal:teachers-create" %}" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn, btn-primary" type="submit" value="Add Teacher">
+  </form>
+
 {% endblock %}

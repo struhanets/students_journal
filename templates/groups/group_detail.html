@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>{{ group.title }}</h1>
@@ -7,7 +8,7 @@
       Leader of group:
       <small class="text-muted">{{ group.leader }}t</small>
     </h3>
-    <table class="table">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">Number</th>
@@ -28,5 +29,12 @@
         {% endfor %}
       </tbody>
     </table>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <a href="{% url "journal:groups-update" pk=group.id %}">
+        <input class="btn btn-success" type="button" value="Edit">
+      </a>
+    </form>
   </div>
 {% endblock %}

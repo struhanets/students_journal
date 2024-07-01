@@ -1,14 +1,23 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>List of Subjects</h1>
   {% if subject_list %}
-    <ul>
-      {% for subject in subject_list %}
-        <li>
-          <a href="#">{{ subject.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+    {% for subject in subject_list %}
+      <details open="">
+        <summary>{{ subject.title }}</summary>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <a href="{% url "journal:subjects-detail" subject.id %}">details</a>
+          </form>
+      </details>
+    {% endfor %}
   {% endif %}
+  <form action="{% url "journal:subjects-create" %}" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn, btn-primary" type="submit" value="Add Subject">
+  </form>
 {% endblock %}

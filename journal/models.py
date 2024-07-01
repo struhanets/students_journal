@@ -8,7 +8,7 @@ from settings import AUTH_USER_MODEL
 class Student(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, unique=True)
-    birth_date = models.DateField()
+    birth_date = models.DateField(null=True, blank=True)
     notes = models.TextField(blank=True)
 
     class Meta:

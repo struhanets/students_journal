@@ -1,16 +1,45 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>Students List</h1>
   {% if student_list %}
-    <ul>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Number</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Birthdate</th>
+          <th scope="col">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
       {% for student in student_list %}
-        <li>
-          <a href="{{ student.get_absolute_url }}">
-            {{ student.first_name }} {{ student.last_name }}
-          </a>
-        </li>
+        <tr>
+          <th scope="row">
+            <a href="{{ student.get_absolute_url }}">
+              {{ student.id }}
+            </a>
+          </th>
+          <td>{{ student.first_name }}</td>
+          <td>{{ student.last_name }}</td>
+          <td>{{ student.birth_date }}</td>
+          <td>
+            <form method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <a href="{% url "journal:students-update" pk=student.id %}">Edit</a>
+            </form>
+          </td>
+        </tr>
       {% endfor %}
-    </ul>
+      </tbody>
+    </table>
   {% endif %}
+  <form action="{% url "journal:students-create" %}" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn, btn-primary" type="submit" value="Add Student">
+  </form>
 {% endblock %}
