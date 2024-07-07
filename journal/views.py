@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -10,7 +9,7 @@ from .forms import (
     TeacherCreationForm,
     GroupCreationForm,
     SubjectCreationForm,
-    StudentCreationForm,
+    StudentCreationForm, StudentLatsNameSearchForm, TeacherLatsNameSearchForm, SubjectTitleSearchForm,
 )
 from .models import Student, Subject, Teacher, Group
 
@@ -39,6 +38,22 @@ class StudentListView(LoginRequiredMixin, generic.ListView):
     template_name = "students/student_list.html"
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super(StudentListView, self).get_context_data(**kwargs)
+        last_name = self.request.GET.get("last_name", "")
+        context["search_form"] = StudentLatsNameSearchForm(
+            initial={"last_name": last_name}
+        )
+
+        return context
+
+    def get_queryset(self):
+        queryset = Student.objects.all()
+        form = StudentLatsNameSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(last_name__icontains=form.cleaned_data["last_name"])
+        return queryset
+
 
 class StudentDetailView(LoginRequiredMixin, generic.DetailView):
     model = Student
@@ -48,14 +63,20 @@ class StudentDetailView(LoginRequiredMixin, generic.DetailView):
 class StudentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Student
     form_class = StudentCreationForm
-    template_name = "students/students_form.html"
-    success_url = reverse_lazy("students:student_list")
+    template_name = "students/student_form.html"
+    success_url = reverse_lazy("journal:students-list")
 
 
 class StudentUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Student
     fields = "__all__"
-    template_name = "students/students_form.html"
+    template_name = "students/student_form.html"
+    success_url = reverse_lazy("journal:students-list")
+
+
+class StudentDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Student
+    template_name = "students/student_delete.html"
     success_url = reverse_lazy("journal:students-list")
 
 
@@ -63,6 +84,21 @@ class TeacherListView(LoginRequiredMixin, generic.ListView):
     model = Teacher
     template_name = "teachers/teacher_list.html"
     paginate_by = 2
+
+    def get_context_data(self, **kwargs):
+        context = super(TeacherListView, self).get_context_data(**kwargs)
+        last_name = self.request.GET.get("last_name", "")
+        context["search_form"] = TeacherLatsNameSearchForm(
+            initial={"last_name": last_name}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Teacher.objects.all()
+        form = TeacherLatsNameSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(last_name__icontains=form.cleaned_data["last_name"])
+        return queryset
 
 
 class TeacherDetailView(LoginRequiredMixin, generic.DetailView):
@@ -98,19 +134,40 @@ class GroupCreateView(LoginRequiredMixin, generic.CreateView):
     model = Group
     form_class = GroupCreationForm
     template_name = "groups/group_form.html"
+    success_url = reverse_lazy("journal:groups-list")
 
 
 class GroupUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Group
     form_class = GroupCreationForm
     template_name = "groups/group_form.html"
-    success_url = reverse_lazy("journal:group_list")
+    success_url = reverse_lazy("journal:groups-list")
+
+
+class GroupDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Group
+    template_name = "groups/group_delete.html"
+    success_url = reverse_lazy("journal:groups-list")
 
 
 class SubjectListView(LoginRequiredMixin, generic.ListView):
     model = Subject
     template_name = "subjects/subject_list.html"
-    queryset = Subject.objects.prefetch_related("students")
+
+    def get_context_data(self, **kwargs):
+        context = super(SubjectListView, self).get_context_data(**kwargs)
+        title = self.request.GET.get("title", "")
+        context["search_form"] = SubjectTitleSearchForm(
+            initial={"title": title}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Subject.objects.prefetch_related("students")
+        form = SubjectTitleSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(title__icontains=form.cleaned_data["title"])
+        return queryset
 
 
 class SubjectDetailView(generic.DetailView):
@@ -128,4 +185,10 @@ class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Subject
     form_class = SubjectCreationForm
     template_name = "subjects/subject_form.html"
-    success_url = reverse_lazy("journal:subject_list")
+    success_url = reverse_lazy("journal:subjects_list")
+
+
+class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Subject
+    template_name = "subjects/subject_delete.html"
+    success_url = reverse_lazy("journal:subjects-list")

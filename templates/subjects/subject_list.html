@@ -3,21 +3,43 @@
 
 {% block content %}
   <h1>List of Subjects</h1>
+  <form action="" method="get" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="&#128269;" class="btn btn-secondary">
+  </form>
+  <br>
   {% if subject_list %}
-    {% for subject in subject_list %}
-      <details open="">
-        <summary>{{ subject.title }}</summary>
-          <form method="post" novalidate>
-            {% csrf_token %}
-            {{ form|crispy }}
-            <a href="{% url "journal:subjects-detail" subject.id %}">details</a>
-          </form>
-      </details>
-    {% endfor %}
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Teacher</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for subject in subject_list %}
+          <tr>
+            <th>{{ subject.id }}</th>
+            <th>
+              <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <a href="{% url "journal:subjects-detail" subject.id %}">
+                  {{ subject.title }}
+                </a>
+              </form>
+            </th>
+            <th>{{ subject.teacher }}</th>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
   {% endif %}
+  <br>
   <form action="{% url "journal:subjects-create" %}" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
-    <input class="btn, btn-primary" type="submit" value="Add Subject">
+    <input class="btn btn-primary" type="submit" value="Add Subject">
   </form>
 {% endblock %}

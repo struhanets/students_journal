@@ -3,6 +3,11 @@
 
 {% block content %}
   <h1>Teachers List</h1>
+  <form action="" method="get" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="&#128269;" class="btn btn-secondary">
+  </form>
+  <br>
   {% if teacher_list %}
     <table class="table table-dark">
       <thead>
@@ -29,7 +34,7 @@
   <form action="{% url "journal:teachers-create" %}" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
-    <input class="btn, btn-primary" type="submit" value="Add Teacher">
+    <input class="btn btn-primary" type="submit" value="Add Teacher">
   </form>
 
 {% endblock %}

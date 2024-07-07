@@ -34,6 +34,14 @@
           <input class="btn btn-success" type="button" value="Edit">
         </a>
       </form>
+      <br>
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <a href="{% url "journal:subjects-delete" pk=subject.id %}">
+          <input class="btn btn-danger" type="button" value="Delete">
+        </a>
+      </form>
     </div>
   </div>
 

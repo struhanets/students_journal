@@ -52,7 +52,7 @@ class Group(models.Model):
 
 class Subject(models.Model):
     title = models.CharField(max_length=255, unique=True)
-    teacher = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    teacher = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.PROTECT)
     students = models.ManyToManyField(Student, related_name="subjects")
 
     class Meta:
@@ -60,3 +60,6 @@ class Subject(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.teacher}"
+
+    def get_absolute_url(self):
+        return reverse("journal:subjects-detail", args=[str(self.id)])

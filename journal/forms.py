@@ -41,3 +41,30 @@ class SubjectCreationForm(forms.ModelForm):
     class Meta:
         model = Subject
         fields = "__all__"
+
+
+class StudentLatsNameSearchForm(forms.Form):
+    last_name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "last_name"})
+    )
+
+
+class TeacherLatsNameSearchForm(forms.Form):
+    last_name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "last_name"})
+    )
+
+
+class SubjectTitleSearchForm(forms.Form):
+    title = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "title"})
+    )

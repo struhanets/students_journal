@@ -3,15 +3,21 @@
 
 {% block content %}
   <h1>Students List</h1>
+  <form action="" method="get" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="&#128269;" class="btn btn-secondary">
+  </form>
+  <br>
   {% if student_list %}
     <table class="table">
-      <thead>
+      <thead class="table-dark">
         <tr>
           <th scope="col">Number</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
           <th scope="col">Birthdate</th>
           <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +38,13 @@
               <a href="{% url "journal:students-update" pk=student.id %}">Edit</a>
             </form>
           </td>
+          <td>
+            <form method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <a href="{% url "journal:students-delete" pk=student.id %}">Delete</a>
+            </form>
+          </td>
         </tr>
       {% endfor %}
       </tbody>
@@ -40,6 +53,6 @@
   <form action="{% url "journal:students-create" %}" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
-    <input class="btn, btn-primary" type="submit" value="Add Student">
+    <input class="btn btn-primary" type="submit" value="Add Student">
   </form>
 {% endblock %}

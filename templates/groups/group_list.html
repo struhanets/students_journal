@@ -17,6 +17,6 @@
   <form action="{% url "journal:groups-create" %}" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
-    <input class="btn, btn-primary" type="submit" value="Add Group">
+    <input class="btn btn-primary" type="submit" value="Add Group">
   </form>
 {% endblock %}
