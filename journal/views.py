@@ -17,9 +17,10 @@ from .models import Student, Subject, Teacher, Group
 @login_required
 # Create your views here.
 def index(request: HttpRequest) -> HttpResponse:
-    students = Student.objects.all()
-    subjects = Subject.objects.all()
-    teachers = Teacher.objects.all()
+    students = Student.objects.count()
+    subjects = Subject.objects.count()
+    teachers = Teacher.objects.count()
+    groups = Group.objects.count()
 
     num_visits = request.session.get('num_visits', 0)
     request.session["num_visits"] = num_visits + 1
@@ -28,6 +29,7 @@ def index(request: HttpRequest) -> HttpResponse:
         'students': students,
         'subjects': subjects,
         'teachers': teachers,
+        'groups': groups,
         'num_visits': num_visits + 1,
     }
     return render(request, "students/index.html", context=context)
