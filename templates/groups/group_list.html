@@ -1,22 +1,51 @@
-{% extends "base.html" %}
+{% extends "layouts/base.html" %}
+{% load static %}
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>List of Groups</h1>
-  {% if group_list %}
-    <ul>
-      {% for group in group_list %}
-        <li>
-          <a href="{{ group.get_absolute_url }}">
-            {{ group.title }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-  <form action="{% url "journal:groups-create" %}" method="post" novalidate>
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input class="btn btn-primary" type="submit" value="Add Group">
-  </form>
+  <main>
+
+    {% include 'includes/pre-loader.html' %}
+
+    <section class="section-header overflow-hidden pt-7 pt-lg-8 pb-9 pb-lg-12 bg-primary text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h1>List of Groups</h1>
+          </div>
+        </div>
+      </div>
+      <figure class="position-absolute bottom-0 left-0 w-100 d-none d-md-block mb-n2">
+        <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 185.4">
+          <path d="M3000,0v185.4H0V0c496.4,115.6,996.4,173.4,1500,173.4S2503.6,115.6,3000,0z"></path>
+        </svg>
+      </figure>
+    </section>
+
+    <section class="section section-lg">
+      <div class="container">
+        <div class="row mb-4 mb-lg-5">
+          <br>
+          {% if group_list %}
+            <ul>
+              {% for group in group_list %}
+                <li>
+                  <a href="{{ group.get_absolute_url }}">
+                    {{ group.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          <form action="{% url "journal:groups-create" %}" method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-primary" type="submit" value="Add Group">
+          </form>
+        </div>
+      </div>
+    </section>
+
+    {% include "includes/pagination.html" %}
+  </main>
 {% endblock %}
