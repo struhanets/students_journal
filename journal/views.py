@@ -9,7 +9,7 @@ from .forms import (
     TeacherCreationForm,
     GroupCreationForm,
     SubjectCreationForm,
-    StudentCreationForm, StudentLatsNameSearchForm, TeacherLatsNameSearchForm, SubjectTitleSearchForm,
+    StudentCreationForm, StudentLastNameSearchForm, TeacherLastNameSearchForm, SubjectTitleSearchForm,
 )
 from .models import Student, Subject, Teacher, Group
 
@@ -43,7 +43,7 @@ class StudentListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(StudentListView, self).get_context_data(**kwargs)
         last_name = self.request.GET.get("last_name", "")
-        context["search_form"] = StudentLatsNameSearchForm(
+        context["search_form"] = StudentLastNameSearchForm(
             initial={"last_name": last_name}
         )
 
@@ -51,7 +51,7 @@ class StudentListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         queryset = Student.objects.all()
-        form = StudentLatsNameSearchForm(self.request.GET)
+        form = StudentLastNameSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(last_name__icontains=form.cleaned_data["last_name"])
         return queryset
@@ -90,14 +90,14 @@ class TeacherListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(TeacherListView, self).get_context_data(**kwargs)
         last_name = self.request.GET.get("last_name", "")
-        context["search_form"] = TeacherLatsNameSearchForm(
+        context["search_form"] = TeacherLastNameSearchForm(
             initial={"last_name": last_name}
         )
         return context
 
     def get_queryset(self):
         queryset = Teacher.objects.all()
-        form = TeacherLatsNameSearchForm(self.request.GET)
+        form = TeacherLastNameSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(last_name__icontains=form.cleaned_data["last_name"])
         return queryset
@@ -187,7 +187,7 @@ class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Subject
     form_class = SubjectCreationForm
     template_name = "subjects/subject_form.html"
-    success_url = reverse_lazy("journal:subjects_list")
+    success_url = reverse_lazy("journal:subjects-list")
 
 
 class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):

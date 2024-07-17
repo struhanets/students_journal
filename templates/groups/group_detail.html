@@ -36,6 +36,10 @@
     <section class="section section-lg">
       <div class="container">
         <div class="row mb-4 mb-lg-5">
+          <h3>About group</h3>
+          <blockquote class="blockquote">
+            <p class="mb-0">{{ group.notes }}</p>
+          </blockquote>
           <table class="table">
             <thead class="table-dark">
             <tr>
@@ -60,6 +64,13 @@
             {% endfor %}
             </tbody>
           </table>
+          <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <a href="{% url "journal:groups-delete" pk=group.id %}">
+              <input class="btn btn-danger" type="button" value="Delete Group">
+            </a>
+          </form>
         </div>
       </div>
     </section>

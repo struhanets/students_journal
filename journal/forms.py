@@ -43,7 +43,7 @@ class SubjectCreationForm(forms.ModelForm):
         fields = "__all__"
 
 
-class StudentLatsNameSearchForm(forms.Form):
+class StudentLastNameSearchForm(forms.Form):
     last_name = forms.CharField(
         max_length=255,
         required=False,
@@ -52,7 +52,7 @@ class StudentLatsNameSearchForm(forms.Form):
     )
 
 
-class TeacherLatsNameSearchForm(forms.Form):
+class TeacherLastNameSearchForm(forms.Form):
     last_name = forms.CharField(
         max_length=255,
         required=False,
