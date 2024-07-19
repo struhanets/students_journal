@@ -10,14 +10,18 @@ class TeacherCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = Teacher
-        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "notes",)
+        fields = UserCreationForm.Meta.fields + (
+            "first_name",
+            "last_name",
+            "notes",
+        )
 
 
 class GroupCreationForm(forms.ModelForm):
     students = forms.ModelMultipleChoiceField(
         queryset=Student.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False
+        required=False,
     )
 
     class Meta:
@@ -28,14 +32,19 @@ class GroupCreationForm(forms.ModelForm):
 class StudentCreationForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ("first_name", "last_name", "birth_date", "notes",)
+        fields = (
+            "first_name",
+            "last_name",
+            "birth_date",
+            "notes",
+        )
 
 
 class SubjectCreationForm(forms.ModelForm):
     students = forms.ModelMultipleChoiceField(
         queryset=Student.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False
+        required=False,
     )
 
     class Meta:
@@ -48,7 +57,7 @@ class StudentLastNameSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "last_name"})
+        widget=forms.TextInput(attrs={"placeholder": "last_name"}),
     )
 
 
@@ -57,7 +66,7 @@ class TeacherLastNameSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "last_name"})
+        widget=forms.TextInput(attrs={"placeholder": "last_name"}),
     )
 
 
@@ -66,5 +75,5 @@ class SubjectTitleSearchForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "title"})
+        widget=forms.TextInput(attrs={"placeholder": "title"}),
     )

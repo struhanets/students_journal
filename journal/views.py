@@ -9,7 +9,10 @@ from .forms import (
     TeacherCreationForm,
     GroupCreationForm,
     SubjectCreationForm,
-    StudentCreationForm, StudentLastNameSearchForm, TeacherLastNameSearchForm, SubjectTitleSearchForm,
+    StudentCreationForm,
+    StudentLastNameSearchForm,
+    TeacherLastNameSearchForm,
+    SubjectTitleSearchForm,
 )
 from .models import Student, Subject, Teacher, Group
 
@@ -22,15 +25,15 @@ def index(request: HttpRequest) -> HttpResponse:
     teachers = Teacher.objects.count()
     groups = Group.objects.count()
 
-    num_visits = request.session.get('num_visits', 0)
+    num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
 
     context = {
-        'students': students,
-        'subjects': subjects,
-        'teachers': teachers,
-        'groups': groups,
-        'num_visits': num_visits + 1,
+        "students": students,
+        "subjects": subjects,
+        "teachers": teachers,
+        "groups": groups,
+        "num_visits": num_visits + 1,
     }
     return render(request, "students/index.html", context=context)
 
@@ -53,7 +56,9 @@ class StudentListView(LoginRequiredMixin, generic.ListView):
         queryset = Student.objects.all()
         form = StudentLastNameSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(last_name__icontains=form.cleaned_data["last_name"])
+            return queryset.filter(
+                last_name__icontains=form.cleaned_data["last_name"]
+            )
         return queryset
 
 
@@ -99,7 +104,9 @@ class TeacherListView(LoginRequiredMixin, generic.ListView):
         queryset = Teacher.objects.all()
         form = TeacherLastNameSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(last_name__icontains=form.cleaned_data["last_name"])
+            return queryset.filter(
+                last_name__icontains=form.cleaned_data["last_name"]
+            )
         return queryset
 
 
@@ -168,7 +175,9 @@ class SubjectListView(LoginRequiredMixin, generic.ListView):
         queryset = Subject.objects.prefetch_related("students")
         form = SubjectTitleSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(title__icontains=form.cleaned_data["title"])
+            return queryset.filter(
+                title__icontains=form.cleaned_data["title"]
+            )
         return queryset
 
 

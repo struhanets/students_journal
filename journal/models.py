@@ -36,7 +36,9 @@ class Teacher(AbstractUser):
 
 class Group(models.Model):
     title = models.CharField(max_length=255, unique=True)
-    leader = models.OneToOneField(Student, on_delete=models.PROTECT, related_name="leader")
+    leader = models.OneToOneField(
+        Student, on_delete=models.PROTECT, related_name="leader"
+    )
     students = models.ManyToManyField(Student, related_name="groups")
     notes = models.TextField(blank=True)
 
