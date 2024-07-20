@@ -56,9 +56,7 @@ class StudentListView(LoginRequiredMixin, generic.ListView):
         queryset = Student.objects.all()
         form = StudentLastNameSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(
-                last_name__icontains=form.cleaned_data["last_name"]
-            )
+            return queryset.filter(last_name__icontains=form.cleaned_data["last_name"])
         return queryset
 
 
@@ -104,9 +102,7 @@ class TeacherListView(LoginRequiredMixin, generic.ListView):
         queryset = Teacher.objects.all()
         form = TeacherLastNameSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(
-                last_name__icontains=form.cleaned_data["last_name"]
-            )
+            return queryset.filter(last_name__icontains=form.cleaned_data["last_name"])
         return queryset
 
 
@@ -166,18 +162,14 @@ class SubjectListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(SubjectListView, self).get_context_data(**kwargs)
         title = self.request.GET.get("title", "")
-        context["search_form"] = SubjectTitleSearchForm(
-            initial={"title": title}
-        )
+        context["search_form"] = SubjectTitleSearchForm(initial={"title": title})
         return context
 
     def get_queryset(self):
         queryset = Subject.objects.prefetch_related("students")
         form = SubjectTitleSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(
-                title__icontains=form.cleaned_data["title"]
-            )
+            return queryset.filter(title__icontains=form.cleaned_data["title"])
         return queryset
 
 
