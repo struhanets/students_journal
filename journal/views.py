@@ -18,7 +18,6 @@ from .models import Student, Subject, Teacher, Group
 
 
 @login_required
-# Create your views here.
 def index(request: HttpRequest) -> HttpResponse:
     students = Student.objects.count()
     subjects = Subject.objects.count()
