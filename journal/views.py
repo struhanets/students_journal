@@ -154,7 +154,7 @@ class GroupDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("journal:groups-list")
 
 
-class SubjectListView(LoginRequiredMixin, generic.ListView):
+class SubjectListView(generic.ListView):
     model = Subject
     template_name = "subjects/subject_list.html"
 

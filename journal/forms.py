@@ -73,7 +73,7 @@ class TeacherLastNameSearchForm(forms.Form):
 class SubjectTitleSearchForm(forms.Form):
     title = forms.CharField(
         max_length=255,
-        required=False,
+        required=True,
         label="",
         widget=forms.TextInput(attrs={"placeholder": "title"}),
     )
