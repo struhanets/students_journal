@@ -1,3 +1,8 @@
+## Getting Started
+1. Copy `.env.example` to `.env`
+2. Replace placeholder values with your actual configuration.
+
+
 Project Description
 The main goal of the project is to create tools for managing groups of students. 
 The users of this system are specifically defined as teachers, 
