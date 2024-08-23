@@ -21,13 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-dotenv_path = BASE_DIR / '.env'
+dotenv_path = BASE_DIR / ".env"
 load_dotenv(dotenv_path)
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
@@ -92,7 +92,7 @@ DATABASES = {
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)
 
-DATABASE_URL="postgresql://neondb_owner:dPjgv8MkQ0IV@ep-noisy-frost-a2cbb959.eu-central-1.aws.neon.tech/neondb?sslmode=require"
+DATABASE_URL = "postgresql://neondb_owner:dPjgv8MkQ0IV@ep-noisy-frost-a2cbb959.eu-central-1.aws.neon.tech/neondb?sslmode=require"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
