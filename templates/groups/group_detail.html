@@ -1,0 +1,80 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <main>
+
+    {% include 'includes/pre-loader.html' %}
+
+    <section class="section-header overflow-hidden pt-7 pt-lg-8 pb-9 pb-lg-12 bg-primary text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h1>{{ group.title }}</h1>
+            <h3>
+              Leader of group:
+              <small class="text-muted">{{ group.leader }}</small>
+            </h3>
+            <form method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <a href="{% url "journal:groups-update" pk=group.id %}">
+                <input class="btn btn-success" type="button" value="Edit">
+              </a>
+            </form>
+          </div>
+        </div>
+      </div>
+      <figure class="position-absolute bottom-0 left-0 w-100 d-none d-md-block mb-n2">
+        <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 185.4">
+          <path d="M3000,0v185.4H0V0c496.4,115.6,996.4,173.4,1500,173.4S2503.6,115.6,3000,0z"></path>
+        </svg>
+      </figure>
+    </section>
+
+    <section class="section section-lg">
+      <div class="container">
+        <div class="row mb-4 mb-lg-5">
+          <h3>About group</h3>
+          <blockquote class="blockquote">
+            <p class="mb-0">{{ group.notes }}</p>
+          </blockquote>
+          <table class="table">
+            <thead class="table-dark">
+            <tr>
+              <th scope="col">Number</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Birthdate</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for student in group.students.all %}
+              <tr>
+                <th scope="row">
+                  <a href="{{ student.get_absolute_url }}">
+                    {{ student.id }}
+                  </a>
+                </th>
+                <td>{{ student.first_name }}</td>
+                <td>{{ student.last_name }}</td>
+                <td>{{ student.birth_date }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <a href="{% url "journal:groups-delete" pk=group.id %}">
+              <input class="btn btn-danger" type="button" value="Delete Group">
+            </a>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    {% include "includes/pagination.html" %}
+  </main>
+{% endblock %}
