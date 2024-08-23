@@ -1,9 +1,7 @@
-## Getting Started
-1. Copy `.env.example` to `.env`
-2. Replace placeholder values with your actual configuration.
+# Students Journal
+> Django project for managing student groups.
 
-
-Project Description
+# Project Description
 The main goal of the project is to create tools for managing groups of students. 
 The users of this system are specifically defined as teachers, 
 who have all the main capabilities for manipulating data on the site. 
@@ -34,3 +32,33 @@ they are left for implementation in the next version.
 
 Assigning students to groups or assigning new students to certain subjects is done using checkboxes. 
 This approach is convenient for now, but it may lose its relevance as the number of students increases.
+
+## Check It out
+
+
+
+## Getting Started
+1. Copy `.env.example` to `.env`
+2. Replace placeholder values with your actual configuration.
+
+## Installation
+
+python must be already installed
+
+```shell
+git clone https://github.com/struhanets/students_journal.git
+cd students_journal
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py runserver # starts Django server
+```
+
+## Features
+
+* Authentication functionality for Teacher/User
+* Management of student groups and assigning students to specific subjects
+* The ability to create new users, edit information about students, groups, and subjects
+
+## Demo
+![Website Interface](demo.png)
