@@ -61,4 +61,6 @@ python manage.py runserver # starts Django server
 * The ability to create new users, edit information about students, groups, and subjects
 
 ## Demo
+
 ![Website Interface](demo.png)
+
