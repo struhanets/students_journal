@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 
-from settings import AUTH_USER_MODEL
+from students_journal.settings import AUTH_USER_MODEL
 
 
 class Student(models.Model):
