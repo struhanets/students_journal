@@ -35,7 +35,7 @@ This approach is convenient for now, but it may lose its relevance as the number
 
 ## Check It out
 
-
+[students_journal project deployed to Render](https://students-journal.onrender.com)
 
 ## Getting Started
 1. Copy `.env.example` to `.env`
