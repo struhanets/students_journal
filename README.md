@@ -60,6 +60,14 @@ python manage.py runserver # starts Django server
 * Management of student groups and assigning students to specific subjects
 * The ability to create new users, edit information about students, groups, and subjects
 
+
+## Configuration
+
+Login and password for the test user
+
+* login: user
+* password: user12345
+
 ## Demo
 
 ![Website Interface](demo.png)
